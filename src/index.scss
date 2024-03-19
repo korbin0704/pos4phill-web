@@ -1,0 +1,170 @@
+@import "./styles/fonts.scss";
+@import "./styles/app.min.css";
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+}
+
+.layout {
+  padding: 15px;
+  height: 100vh;
+}
+
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.table-header {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.table-body {
+  flex: 1;
+  padding-bottom: 20px;
+}
+
+.table-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 16px;
+
+  .wrapper-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    display: inline-flex;
+    gap: 1px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      color: white;
+    }
+
+    > div:not(:last-child) {
+      border-right: 1px solid white;
+    }
+  }
+
+  .wrapper-body {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+  }
+
+  .wrapper-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: inline-flex;
+
+    > div {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      color: white;
+    }
+
+    > div:not(:last-child) {
+      border-right: 1px solid white;
+    }
+  }
+}
+
+.payment {
+  display: flex;
+  //gap: 40px;
+
+  .left {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+    flex: 1;
+
+    .item {
+      display: flex;
+      //gap: 5px;
+
+      button, label, .form-control {
+        flex: 1;
+      }
+
+      button {
+        white-space: nowrap;
+      }
+
+      .form-control {
+        text-align: right;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 20px;
+
+    .form-group {
+      flex: 1;
+
+      &:not(:first-child) {
+        margin-left: 5px;
+      }
+    }
+
+    .btn-group {
+      //gap: 10px;
+      margin-bottom: 10px;
+
+      > button {
+        flex: 1
+      }
+
+      button + button {
+        flex: 3;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.delivery {
+  overflow-x: auto;
+}
+
+.item-info {
+  .item-thumb {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .buttons button {
+    padding: .5rem 1.5rem;
+  }
+}
