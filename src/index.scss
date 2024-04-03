@@ -51,13 +51,14 @@ body {
     width: 100%;
     z-index: 2;
     display: inline-flex;
-    gap: 1px;
+    //gap: 1px;
 
     > div {
       display: flex;
       align-items: center;
-      padding: 8px;
+      padding: 12.5px 8px;
       color: white;
+      font-size: 0.85rem;
     }
 
     > div:not(:last-child) {
@@ -95,76 +96,154 @@ body {
 
 .payment {
   display: flex;
+  flex-direction: column;
   //gap: 40px;
 
-  .left {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 5px;
+  button, .form-control {
+    padding: 10px 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .form-control {
+    height: calc(1.5em + 20px + 2px);
+  }
+
+  .item-row {
+    display: flex;
+    //gap: 10px;
+  }
+
+  .item {
+    display: flex;
+    margin-bottom: 10px;
     flex: 1;
 
-    .item {
-      display: flex;
-      //gap: 5px;
+    label, .form-control {
+      flex: 2;
+    }
 
-      button, label, .form-control {
-        flex: 1;
-      }
+    button {
+      flex: 1;
+      white-space: nowrap;
+    }
 
-      button {
-        white-space: nowrap;
-      }
-
-      .form-control {
-        text-align: right;
-        margin-left: 5px;
-      }
+    .form-control {
+      text-align: right;
+      margin-left: 5px;
     }
   }
 
-  .right {
-    display: flex;
-    flex-direction: column;
+  .form-group {
     flex: 1;
-    margin-left: 20px;
 
-    .form-group {
-      flex: 1;
-
-      &:not(:first-child) {
-        margin-left: 5px;
-      }
+    &:not(:first-child) {
+      margin-left: 5px;
     }
+  }
 
-    .btn-group {
-      //gap: 10px;
-      margin-bottom: 10px;
+  .control-label {
+    font-size: 0.95rem;
+  }
 
-      > button {
-        flex: 1
-      }
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 
-      button + button {
-        flex: 3;
-        margin-left: 10px;
-      }
+    button {
+      flex: 1
     }
   }
 }
 
 .delivery {
-  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .item-info {
   .item-thumb {
-    width: 150px;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
   }
 
   .buttons button {
     padding: .5rem 1.5rem;
   }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 650px;
+  }
+}
+
+/*.btn {
+  padding: 10px 0.95rem;
+  font-size: 0.95rem;
+}*/
+
+.btn-lg {
+  padding: 1.1rem 1rem;
+  font-size: 1.175rem;
+}
+
+/*.form-control {
+  padding: 10px 0.75rem;
+}*/
+
+.form-control-lg {
+  font-size: 1.275rem;
+}
+
+.table th, .table td {
+  padding: 12px 8px;
+  font-size: 0.85rem;
+}
+
+
+.number-input {
+  display: flex;
+  flex-direction: column;
+
+  .number-display {
+    text-align: right;
+  }
+
+  .number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    margin: 10px 0;
+
+    .number-button {
+      width: 100%;
+      padding-top: 100%;
+      position: relative;
+      border: 1px solid lightgray;
+      background-color: lightcyan;
+
+      label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .btn-group {
+  }
+}
+
+.my-pick__control {
+  min-height: 48px;
+  font-size: 1.1rem;
+}
+
+.my-pick__menu {
+  font-size: 1.1rem;
 }

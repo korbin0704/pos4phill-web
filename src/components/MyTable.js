@@ -9,7 +9,7 @@ const MyTable = ({ data, onCell }) => {
   const bodyFooterRef = useRef(null);
   const footerRef = useRef(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setTimeout(() => {
       const headerTr = headerRef.current;
       const bodyHeaderTr = bodyHeaderRef.current;
@@ -29,33 +29,33 @@ const MyTable = ({ data, onCell }) => {
         th.style.height = `${bodyFooterTr.childNodes[idx].offsetHeight}px`;
       });
     }, 500);
-  }, [data]);
+  }, [data]);*/
 
   return (
     <div className="table-wrapper">
       <div className="wrapper-header bg-inverse" ref={headerRef}>
-        <div>No</div>
-        <div>Item</div>
-        <div>Qty</div>
-        <div>Unit,Price</div>
-        <div>Discount</div>
-        <div>Ext</div>
-        <div>VAT</div>
-        <div>SUM</div>
+        <div style={{width: '8%'}}>No</div>
+        <div style={{width: '22%'}}>Item</div>
+        <div style={{width: '10%'}}>Qty</div>
+        <div style={{width: '12%'}}>Unit,Price</div>
+        <div style={{width: '12%'}}>Discount</div>
+        <div style={{width: '10%'}}>Ext</div>
+        <div style={{width: '10%'}}>VAT</div>
+        <div style={{width: '16%'}}>SUM</div>
       </div>
       <div className="wrapper-body">
         <table
           className="table table-td-valign-middle table-th-valign-middle table-bordered table-hover table-responsive-sm bg-white m-b-0 border-bottom-0">
           <thead className="bg-inverse text-white">
           <tr ref={bodyHeaderRef}>
-            <th>No</th>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Unit,Price</th>
-            <th>Discount</th>
-            <th>Ext</th>
-            <th>VAT</th>
-            <th>SUM</th>
+            <th style={{width: '8%'}}>No</th>
+            <th style={{width: '22%'}}>Item</th>
+            <th style={{width: '10%'}}>Qty</th>
+            <th style={{width: '12%'}}>Unit,Price</th>
+            <th style={{width: '12%'}}>Discount</th>
+            <th style={{width: '10%'}}>Ext</th>
+            <th style={{width: '10%'}}>VAT</th>
+            <th style={{width: '16%'}}>SUM</th>
           </tr>
           </thead>
           <tbody>
@@ -64,7 +64,7 @@ const MyTable = ({ data, onCell }) => {
               <tr key={idx} onClick={() => onCell?.(it)}>
                 <td>{idx + 1}</td>
                 <td>{it.name}</td>
-                <td>{it.qty}</td>
+                <td>{it.qty.currencyFormat()}</td>
                 <td>{it.price.currencyFormat()}</td>
                 <td>{it.discount}</td>
                 <td>{getExt(it).currencyFormat()}</td>
@@ -85,10 +85,10 @@ const MyTable = ({ data, onCell }) => {
         </table>
       </div>
       <div className="wrapper-footer bg-inverse" ref={footerRef}>
-        <div>Total</div>
-        <div>1,100</div>
-        <div>110</div>
-        <div>1,210</div>
+        <div style={{width: '64%'}}>Total</div>
+        <div style={{width: '10%'}}>1,100</div>
+        <div style={{width: '10%'}}>110</div>
+        <div style={{width: '16%'}}>1,210</div>
       </div>
     </div>
   )

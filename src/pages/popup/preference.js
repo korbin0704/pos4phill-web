@@ -24,33 +24,33 @@ const PreferencePopup = ({ isOpen, onClose }) => {
             <form action="/" method="POST">
               <fieldset>
                 <div className="form-group row m-b-15">
-                  <label className="col-md-3 col-form-label">POS_ID</label>
+                  <label className="col-md-3 col-form-label form-control-lg">POS_ID</label>
                   <div className="col-md-7">
-                    <input type="text" className="form-control" placeholder="" />
+                    <input type="text" className="form-control form-control-lg" placeholder="" />
                   </div>
                 </div>
                 <div className="form-group row m-b-15">
-                  <label className="col-md-3 col-form-label">Server</label>
+                  <label className="col-md-3 col-form-label form-control-lg">Server</label>
                   <div className="col-md-7">
-                    <input type="text" className="form-control" placeholder="" />
+                    <input type="text" className="form-control form-control-lg" placeholder="" />
                   </div>
                 </div>
                 <div className="form-group row m-b-15">
-                  <label className="col-md-3 col-form-label">Log Home</label>
+                  <label className="col-md-3 col-form-label form-control-lg">Log Home</label>
                   <div className="col-md-7">
-                    <input type="text" className="form-control" placeholder="" />
+                    <input type="text" className="form-control form-control-lg" placeholder="" />
                   </div>
                 </div>
-                <div className="form-group row m-b-15">
-                  <label className="col-md-3 col-form-label">IP</label>
+                <div className="form-group row m-b-25">
+                  <label className="col-md-3 col-form-label form-control-lg">IP</label>
                   <div className="col-md-7">
-                    <input type="text" className="form-control" value="192.168.0.1" readOnly />
+                    <input type="text" className="form-control form-control-lg" value="192.168.0.1" readOnly />
                   </div>
                 </div>
                 <div className="form-group row">
-                  <div className="col-md-7 offset-md-3">
-                    <button type="button" className="btn btn-sm btn-primary m-r-5" onClick={onReset}>RESET</button>
-                    <button type="button" className="btn btn-sm btn-default" onClick={onConfirm}>CONFIRM</button>
+                  <div className="col-md-7 offset-md-3 d-flex">
+                    <button type="reset" className="btn btn-lg btn-primary flex-fill m-r-5">RESET</button>
+                    <button type="button" className="btn btn-lg btn-default flex-fill" onClick={onConfirm}>CONFIRM</button>
                   </div>
                 </div>
               </fieldset>

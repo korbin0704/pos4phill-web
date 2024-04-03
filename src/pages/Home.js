@@ -5,14 +5,71 @@ import classnames from "classnames";
 import PreferencePopup from "./popup/preference";
 import Main from "./Main";
 import Delivery from "./Delivery";
+import PaymentPopup from "./popup/payment";
+import SeniorDiscountPopup from "./popup/senior";
+import WholeSalePopup from "./popup/whole";
 
 const Home = () => {
 
-  const [showLogin, toggleLogin] = useState(false);
+  const [list, setList] = useState([
+    {
+      id: 1,
+      name: 'Engine Oil',
+      qty: 1,
+      price: 100,
+      discount: 0,
+      vat: 10,
+      image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
+    },
+    {
+      id: 2,
+      name: 'Ramen',
+      qty: 2,
+      price: 200,
+      discount: 0,
+      vat: 40,
+      image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
+    },
+    {
+      id: 3,
+      name: 'Milk',
+      qty: 1,
+      price: 100,
+      discount: 0,
+      vat: 10,
+      image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
+    },
+    {
+      id: 4,
+      name: 'Kimchi',
+      qty: 1,
+      price: 1000,
+      discount: 50,
+      vat: 50,
+      image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
+    },
+  ]);
+
+  // 로그인여부
   const [isLogin, setIsLogin] = useState(false);
 
+  // 송달정보패널 현시여부
   const [delivery, setDelivery] = useState(0);
-  const [preferencePopup, setPreferencePopup] = useState(false);
+
+  // 로그인팝업 현시여부
+  const [showLogin, toggleLogin] = useState(false);
+
+  // Preference 팝업현시여부
+  const [preferencePopup, togglePreferencePopup] = useState(false);
+
+  // 결제팝업현시여부
+  const [paymentPopup, togglePaymentPopup] = useState(false);
+
+  // senior 팝업현시여부
+  const [seniorPopup, toggleSeniorPopup] = useState(false);
+
+  // whole sale 팝업현시여부
+  const [wholePopup, toggleWholePopup] = useState(false)
 
   const onLogin = () => {
     if (isLogin) {
@@ -30,7 +87,19 @@ const Home = () => {
   }
 
   const onPreferences = () => {
-    setPreferencePopup(true);
+    togglePreferencePopup(true);
+  }
+
+  const onPayment = () => {
+    togglePaymentPopup(true);
+  }
+
+  const onSeniorDiscount = () => {
+    toggleSeniorPopup(true);
+  }
+
+  const onWholeSale = () => {
+    toggleWholePopup(true);
   }
 
   return (
@@ -38,8 +107,12 @@ const Home = () => {
       <div className="row">
         <div className="col-xs-12 d-flex flex-column">
           <div className="table-header">
-            <button className={classnames(["btn", delivery > 0 ? "btn-outline-primary" : "btn-primary"])}
-                    onClick={onDelivery}>Delivery
+            <button className="btn btn-blue" onClick={onPayment}>Payment</button>
+            <button className="btn btn-blue m-l-10" onClick={onSeniorDiscount}>Senior Discount</button>
+            <button className="btn btn-blue m-l-10" onClick={onWholeSale}>Whole Sale</button>
+            <button className={classnames(["btn m-l-10", delivery > 0 ? "btn-outline-primary" : "btn-primary"])}
+                    onClick={onDelivery}>
+              Delivery
             </button>
             <button className="btn btn-success m-l-10" onClick={onPreferences}>Preferences</button>
             <div className="d-flex align-items-end pull-right">
@@ -52,7 +125,26 @@ const Home = () => {
         </div>
       </div>
 
-      {delivery < 1 ? <Main /> : <Delivery />}
+      {
+        delivery < 1 ?
+          <Main
+            list={list}
+            onSave={item => {
+              setList(prev => {
+                return prev.map(it => {
+                  return it.id === item.id ? item : it;
+                })
+              });
+            }}
+            onDelete={item => {
+              setList(prev => {
+                return prev.filter(it => it.id !== item.id)
+              });
+            }}
+          />
+          :
+          <Delivery list={list} />
+      }
 
       <LoginPopup
         isOpen={showLogin}
@@ -65,7 +157,22 @@ const Home = () => {
 
       <PreferencePopup
         isOpen={preferencePopup}
-        onClose={() => setPreferencePopup(false)}
+        onClose={() => togglePreferencePopup(false)}
+      />
+
+      <PaymentPopup
+        isOpen={paymentPopup}
+        onClose={() => togglePaymentPopup(false)}
+      />
+
+      <SeniorDiscountPopup
+        isOpen={seniorPopup}
+        onClose={() => toggleSeniorPopup(false)}
+      />
+
+      <WholeSalePopup
+        isOpen={wholePopup}
+        onClose={() => toggleWholePopup(false)}
       />
     </div>
   );

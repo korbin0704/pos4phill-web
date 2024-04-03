@@ -1,7 +1,8 @@
 import React from "react";
 
 String.prototype.currencyFormat = function () {
-  return this.replace(/,/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const digits = this.split('.');
+  return digits[0].replace(/,/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (digits.length > 1 ? `.${digits[1]}` : '');
 };
 
 // for reactjs

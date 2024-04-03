@@ -1,50 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Nav, NavItem, NavLink } from "reactstrap";
-import classnames from "classnames";
+import React from 'react';
 
-const ProductsFragment = () => {
-
-  const [list, setList] = useState([]);
-  useEffect(() => {
-    setList([
-      {
-        id: 1,
-        name: 'Engine Oil',
-        qty: 1,
-        price: 100,
-        discount: 0,
-        vat: 10,
-        image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
-      },
-      {
-        id: 2,
-        name: 'Ramen',
-        qty: 2,
-        price: 200,
-        discount: 0,
-        vat: 40,
-        image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
-      },
-      {
-        id: 3,
-        name: 'Milk',
-        qty: 1,
-        price: 100,
-        discount: 0,
-        vat: 10,
-        image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
-      },
-      {
-        id: 4,
-        name: 'Kimchi',
-        qty: 1,
-        price: 1000,
-        discount: 50,
-        vat: 50,
-        image: 'http://192.168.0.176:8040/html/img/placeholder-image-11.png'
-      },
-    ]);
-  }, []);
+const ProductsFragment = ({ list }) => {
 
   const getExt = it => it.qty * (it.price * (100 - it.discount) / 100);
 

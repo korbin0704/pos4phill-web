@@ -3,15 +3,15 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import DeliveryFragment from "./fragment/Delivery";
 import ProductsFragment from "./fragment/Products";
-import PaymentFragment from "./fragment/Payment";
+// import PaymentFragment from "./fragment/Payment";
 
-const Delivery = () => {
+const Delivery = ({ list }) => {
 
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
     { tab: 0, title: 'Delivery', view: () => <DeliveryFragment /> },
-    { tab: 1, title: 'Products', view: () => <ProductsFragment /> },
-    { tab: 2, title: 'Payment', view: () => <PaymentFragment /> },
+    { tab: 1, title: 'Products', view: () => <ProductsFragment list={list} /> },
+    // { tab: 2, title: 'Payment', view: () => <PaymentFragment /> },
   ];
 
   const toggleTab = tab => {
