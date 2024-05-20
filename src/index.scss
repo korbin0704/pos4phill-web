@@ -25,6 +25,8 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -42,7 +44,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  margin-bottom: 16px;
+  //margin-bottom: 16px;
 
   .wrapper-header {
     position: absolute;
@@ -56,7 +58,7 @@ body {
     > div {
       display: flex;
       align-items: center;
-      padding: 12.5px 8px;
+      padding: 12.5px 2px;
       color: white;
       font-size: 0.85rem;
     }
@@ -84,12 +86,39 @@ body {
     > div {
       display: flex;
       align-items: center;
-      padding: 8px;
+      padding: 12px 8px;
       color: white;
+      font-size: 0.85rem;
     }
 
     > div:not(:last-child) {
       border-right: 1px solid white;
+    }
+
+    .footer-right {
+      flex-direction: column;
+      padding: 0;
+
+      .footer-tr {
+        display: flex;
+        width: 100%;
+
+        > div {
+          padding: 12px 2px;
+          font-size: 0.8rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          &:not(:last-child) {
+            border-right: 1px solid white;
+          }
+        }
+
+        & + .footer-tr {
+          border-top: 1px solid white;
+        }
+      }
     }
   }
 }
@@ -97,7 +126,10 @@ body {
 .payment {
   display: flex;
   flex-direction: column;
+  background-color: white;
+  padding: 12px;
   //gap: 40px;
+  min-height: 100%;
 
   button, .form-control {
     padding: 10px 0.75rem;
@@ -122,7 +154,7 @@ body {
       flex: 2;
     }
 
-    button {
+    .btn-grey {
       flex: 1;
       white-space: nowrap;
     }
@@ -159,6 +191,27 @@ body {
 .delivery {
   display: flex;
   flex-direction: column;
+
+  .btn-group {
+    width: 100%;
+  }
+
+  .bottom-button {
+    width: 100%;
+    display: flex;
+
+    .button-set {
+      flex: 1;
+
+      &:not(:first-child) {
+        margin-left: 15px;
+      }
+
+      button {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 .item-info {
@@ -198,7 +251,7 @@ body {
 }
 
 .table th, .table td {
-  padding: 12px 8px;
+  padding: 12px 2px;
   font-size: 0.85rem;
 }
 
@@ -246,4 +299,26 @@ body {
 
 .my-pick__menu {
   font-size: 1.1rem;
+}
+
+.payment-dialog {
+  .nav-tab {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
+
+    button {
+      background-color: white;
+      outline: none;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      margin-bottom: -1px;
+      border: 1px solid transparent;
+      border-bottom-color: lightgray;
+
+      &.active {
+        border: 1px solid lightgray;
+        border-bottom-color: transparent;
+      }
+    }
+  }
 }

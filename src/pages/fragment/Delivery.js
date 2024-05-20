@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from "dayjs";
+import DateTime from 'react-datetime';
+import classnames from "classnames";
 
 const DeliveryFragment = () => {
 
@@ -18,6 +20,42 @@ const DeliveryFragment = () => {
     { id: 2, name: 'M002' },
     { id: 3, name: 'M003' },
   ];
+
+  const [status, setStatus] = useState([]);
+  const [today, toggleToday] = useState(false);
+  const [week, toggleWeek] = useState(false);
+  const [month, toggleMonth] = useState(false);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+
+  const toggleStatus = value => {
+    setStatus(prev => prev.includes(value) ? prev.filter(it => it !== value) : prev.concat(value));
+  }
+
+  const setDate = days => {
+    toggleToday(days === 1);
+    toggleWeek(days === 7);
+    toggleMonth(days === 30);
+
+    switch (days) {
+      case 1:
+        setFrom(dayjs().format('YYYY-MM-DD'));
+        setTo(dayjs().format('YYYY-MM-DD'));
+        break;
+      case 7:
+        setFrom(dayjs().startOf('week').format('YYYY-MM-DD'));
+        setTo(dayjs().endOf('week').format('YYYY-MM-DD'));
+        break;
+      case 30:
+        setFrom(dayjs().startOf('month').format('YYYY-MM-DD'));
+        setTo(dayjs().endOf('month').format('YYYY-MM-DD'));
+        break;
+      default:
+    }
+  }
+
+  const onSearch = () => {
+  }
 
   const [list, setList] = useState([]);
   useEffect(() => {
@@ -126,14 +164,80 @@ const DeliveryFragment = () => {
     }
   }
 
-  const onFinish = () => {
-    if (!window.confirm('Are you sure to finish Delivery?')) {
-      return;
-    }
+  const onArrival = () => {
+  }
+
+  const onRollback = () => {
+  }
+
+  const onRemove = () => {
   }
 
   return (
     <div className="delivery">
+      <div className="form-inline m-b-5">
+        <button
+          className={classnames(["btn", status.includes('Pending') ? "btn-success" : "btn-outline-primary"])}
+          onClick={() => toggleStatus('Pending')}>
+          Pending
+        </button>
+        <button
+          className={classnames(["btn m-l-5", status.includes('Delivery') ? "btn-success" : "btn-outline-primary"])}
+          onClick={() => toggleStatus('Delivery')}>
+          Delivery
+        </button>
+        <button className={classnames(["btn m-l-5", status.includes('Done') ? "btn-success" : "btn-outline-primary"])}
+                onClick={() => toggleStatus('Done')}>
+          Done
+        </button>
+        <button
+          className={classnames(["btn m-l-5", status.includes('Cancel') ? "btn-success" : "btn-outline-primary"])}
+          onClick={() => toggleStatus('Cancel')}>
+          Cancel
+        </button>
+      </div>
+      <div className="form-inline m-b-15">
+        <button className={classnames(["btn", today ? "btn-success" : "btn-outline-primary"])}
+                onClick={() => setDate(1)}>
+          Today
+        </button>
+        <button className={classnames(["btn m-l-5", week ? "btn-success" : "btn-outline-primary"])}
+                onClick={() => setDate(7)}>
+          Week
+        </button>
+        <button className={classnames(["btn m-l-5", month ? "btn-success" : "btn-outline-primary"])}
+                onClick={() => setDate(30)}>
+          Month
+        </button>
+        <DateTime
+          dateFormat={'YYYY-MM-DD'}
+          timeFormat={false}
+          value={from}
+          closeOnSelect={true}
+          className="m-l-5"
+          onChange={(e) => {
+            if (typeof e === 'string') {
+              setFrom(e);
+            } else {
+              setFrom(e.format('YYYY-MM-DD'));
+            }
+          }} />
+        <label>&nbsp;~&nbsp;</label>
+        <DateTime
+          dateFormat={'YYYY-MM-DD'}
+          timeFormat={false}
+          value={to}
+          closeOnSelect={true}
+          className=""
+          onChange={(e) => {
+            if (typeof e === 'string') {
+              setTo(e);
+            } else {
+              setTo(e.format('YYYY-MM-DD'));
+            }
+          }} />
+        <button className="btn btn-primary m-l-10" onClick={onSearch}>Search</button>
+      </div>
       <h3><u>Infor</u></h3>
       <table
         className="table table-td-valign-middle table-th-valign-middle table-bordered table-hover table-responsive-sm bg-white">
@@ -205,7 +309,7 @@ const DeliveryFragment = () => {
         </thead>
         <tbody>
         {
-          list.map((it, idx) => (
+          list.filter((it, idx) => idx < 1).map((it, idx) => (
             <tr key={idx} className="text-center">
               <td>
                 <select className="form-control" onChange={e => handleChange(idx, 'cashier1', e.target.value)}
@@ -240,7 +344,10 @@ const DeliveryFragment = () => {
                   }
                 </select>
               </td>
-              <td>{it.out.currencyFormat()}</td>
+              <td>
+                <input type="text" className="form-control" value={it.out}
+                       onChange={e => handleChange(idx, 'out', e.target.value)} />
+              </td>
               <td>
                 <select className="form-control" onChange={e => handleChange(idx, 'cashier2', e.target.value)}
                         value={it.cashier2}>
@@ -274,17 +381,37 @@ const DeliveryFragment = () => {
                   }
                 </select>
               </td>
-              <td>{it.in.currencyFormat()}</td>
+              <td>
+                <input type="text" className="form-control" value={it.in}
+                       onChange={e => handleChange(idx, 'in', e.target.value)} />
+              </td>
             </tr>
           ))
         }
         </tbody>
       </table>
-      <div className="btn-group ">
-        <button className="btn btn-lg btn-info" onClick={onStartPrint}>Start-Print</button>
-        <button className="btn btn-lg btn-success" onClick={onStart}>START / Done</button>
-        <button className="btn btn-lg btn-primary" onClick={onArrivalPrint}>Arrival-Print</button>
-        <button className="btn btn-lg btn-dark" onClick={onFinish}>FINISH / Done</button>
+      <div className="bottom-button">
+        <div className="button-set">
+          <h4 className="control-label">START</h4>
+          <div className="btn-group">
+            <button className="btn btn-lg btn-info" onClick={onStartPrint}>Print</button>
+            <button className="btn btn-lg btn-success" onClick={onStart}>START & OPEN</button>
+          </div>
+        </div>
+        <div className="button-set">
+          <h4 className="control-label">ARRIVAL</h4>
+          <div className="btn-group">
+            <button className="btn btn-lg btn-info" onClick={onArrivalPrint}>Print</button>
+            <button className="btn btn-lg btn-success" onClick={onArrival}>DONE & OPEN</button>
+          </div>
+        </div>
+        <div className="button-set">
+          <h4 className="control-label">EDIT</h4>
+          <div className="btn-group">
+            <button className="btn btn-lg btn-dark" onClick={onRollback}>ROLLBACK</button>
+            <button className="btn btn-lg btn-danger" onClick={onRemove}>REMOVE</button>
+          </div>
+        </div>
       </div>
     </div>
   );

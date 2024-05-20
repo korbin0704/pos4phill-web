@@ -5,9 +5,9 @@ import classnames from "classnames";
 import PreferencePopup from "./popup/preference";
 import Main from "./Main";
 import Delivery from "./Delivery";
-import PaymentPopup from "./popup/payment";
 import SeniorDiscountPopup from "./popup/senior";
 import WholeSalePopup from "./popup/whole";
+import Payment from "./Payment";
 
 const Home = () => {
 
@@ -107,8 +107,8 @@ const Home = () => {
       <div className="row">
         <div className="col-xs-12 d-flex flex-column">
           <div className="table-header">
-            <button className="btn btn-blue" onClick={onPayment}>Payment</button>
-            <button className="btn btn-blue m-l-10" onClick={onSeniorDiscount}>Senior Discount</button>
+            {/*<button className="btn btn-blue" onClick={onPayment}>Payment</button>*/}
+            <button className="btn btn-blue" onClick={onSeniorDiscount}>Senior Discount</button>
             <button className="btn btn-blue m-l-10" onClick={onWholeSale}>Whole Sale</button>
             <button className={classnames(["btn m-l-10", delivery > 0 ? "btn-outline-primary" : "btn-primary"])}
                     onClick={onDelivery}>
@@ -127,21 +127,28 @@ const Home = () => {
 
       {
         delivery < 1 ?
-          <Main
-            list={list}
-            onSave={item => {
-              setList(prev => {
-                return prev.map(it => {
-                  return it.id === item.id ? item : it;
-                })
-              });
-            }}
-            onDelete={item => {
-              setList(prev => {
-                return prev.filter(it => it.id !== item.id)
-              });
-            }}
-          />
+          <div className="row" style={{ flex: 1, height: '100%', overflow: 'hidden' }}>
+            <div className="col-xs-6" style={{height: '100%'}}>
+              <Main
+                list={list}
+                onSave={item => {
+                  setList(prev => {
+                    return prev.map(it => {
+                      return it.id === item.id ? item : it;
+                    })
+                  });
+                }}
+                onDelete={item => {
+                  setList(prev => {
+                    return prev.filter(it => it.id !== item.id)
+                  });
+                }}
+              />
+            </div>
+            <div className="col-xs-6" style={{height: '100%', overflowY: 'auto'}}>
+              <Payment />
+            </div>
+          </div>
           :
           <Delivery list={list} />
       }
@@ -160,10 +167,10 @@ const Home = () => {
         onClose={() => togglePreferencePopup(false)}
       />
 
-      <PaymentPopup
+      {/*<PaymentPopup
         isOpen={paymentPopup}
         onClose={() => togglePaymentPopup(false)}
-      />
+      />*/}
 
       <SeniorDiscountPopup
         isOpen={seniorPopup}

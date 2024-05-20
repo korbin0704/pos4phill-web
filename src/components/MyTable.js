@@ -34,28 +34,28 @@ const MyTable = ({ data, onCell }) => {
   return (
     <div className="table-wrapper">
       <div className="wrapper-header bg-inverse" ref={headerRef}>
-        <div style={{width: '8%'}}>No</div>
-        <div style={{width: '22%'}}>Item</div>
-        <div style={{width: '10%'}}>Qty</div>
-        <div style={{width: '12%'}}>Unit,Price</div>
-        <div style={{width: '12%'}}>Discount</div>
-        <div style={{width: '10%'}}>Ext</div>
-        <div style={{width: '10%'}}>VAT</div>
-        <div style={{width: '16%'}}>SUM</div>
+        <div style={{ width: '8%' }}>No</div>
+        <div style={{ width: '22%' }}>Item</div>
+        <div style={{ width: '10%' }}>Qty</div>
+        <div style={{ width: '12%' }}>Unit<br/>Price</div>
+        <div style={{ width: '12%' }}>Dis<br/>count</div>
+        <div style={{ width: '10%' }}>Ext</div>
+        <div style={{ width: '10%' }}>VAT</div>
+        <div style={{ width: '16%' }}>SUM</div>
       </div>
       <div className="wrapper-body">
         <table
           className="table table-td-valign-middle table-th-valign-middle table-bordered table-hover table-responsive-sm bg-white m-b-0 border-bottom-0">
           <thead className="bg-inverse text-white">
           <tr ref={bodyHeaderRef}>
-            <th style={{width: '8%'}}>No</th>
-            <th style={{width: '22%'}}>Item</th>
-            <th style={{width: '10%'}}>Qty</th>
-            <th style={{width: '12%'}}>Unit,Price</th>
-            <th style={{width: '12%'}}>Discount</th>
-            <th style={{width: '10%'}}>Ext</th>
-            <th style={{width: '10%'}}>VAT</th>
-            <th style={{width: '16%'}}>SUM</th>
+            <th style={{ width: '8%' }}>No</th>
+            <th style={{ width: '22%' }}>Item</th>
+            <th style={{ width: '10%' }}>Qty</th>
+            <th style={{ width: '12%' }}>Unit<br/>Price</th>
+            <th style={{ width: '12%' }}>Dis<br/>count</th>
+            <th style={{ width: '10%' }}>Ext</th>
+            <th style={{ width: '10%' }}>VAT</th>
+            <th style={{ width: '16%' }}>SUM</th>
           </tr>
           </thead>
           <tbody>
@@ -76,7 +76,12 @@ const MyTable = ({ data, onCell }) => {
           </tbody>
           <tfoot className="bg-inverse text-white invisible">
           <tr ref={bodyFooterRef}>
-            <td className="border-0" colSpan={5}>Total</td>
+            <td className="border-0" colSpan={5} rowSpan={2}>Total</td>
+            <td className="border-0">Ext</td>
+            <td className="border-0">VAT</td>
+            <td className="border-0">SUM</td>
+          </tr>
+          <tr>
             <td className="border-0">1,100</td>
             <td className="border-0">110</td>
             <td className="border-0">1,210</td>
@@ -85,10 +90,19 @@ const MyTable = ({ data, onCell }) => {
         </table>
       </div>
       <div className="wrapper-footer bg-inverse" ref={footerRef}>
-        <div style={{width: '64%'}}>Total</div>
-        <div style={{width: '10%'}}>1,100</div>
-        <div style={{width: '10%'}}>110</div>
-        <div style={{width: '16%'}}>1,210</div>
+        <div className="d-flex align-items-center justify-content-center" style={{ width: '64%' }}>Total</div>
+        <div className="footer-right" style={{ width: '36%' }}>
+          <div className="footer-tr">
+            <div style={{ flex: 10 }}>Ext</div>
+            <div style={{ flex: 10 }}>VAT</div>
+            <div style={{ flex: 16 }}>SUM</div>
+          </div>
+          <div className="footer-tr">
+            <div style={{ flex: 10 }}>1,100</div>
+            <div style={{ flex: 10 }}>110</div>
+            <div style={{ flex: 16 }}>1,210</div>
+          </div>
+        </div>
       </div>
     </div>
   )
